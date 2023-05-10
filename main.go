@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"prakerja3/configs"
 	"prakerja3/routes"
 )
@@ -8,6 +9,10 @@ import (
 func main() {
 	configs.ConnectDatabase()
 	e := routes.InitRoute()
-	e.Start(":8000")
-}
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	e.Start(":" + port)
+}
